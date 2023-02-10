@@ -16,6 +16,16 @@ app.use('/api/users/', userRoute)
 app.use('/api/booking/',  bookingRoute)
 
 
+import path from 'path';
+
+if(process.env.NODE_ENV=='production'){
+    app.get('/', express.static('fronted/build') );//to tell the compiler where to search the client folder 
+
+    //tell the compiler to search all the request endpoints in the index.html
+    app.get("*", (req,res)=>{
+        res.sendFile(path.resolve(__dirname, 'fronted/build/index.html'))
+    })
+}
 //create port
 const port= process.env.PORT|| 5000;
 
