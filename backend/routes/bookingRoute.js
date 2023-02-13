@@ -4,7 +4,7 @@ import Vehicles from "../models/vehicleModel.js";
 const bookingRoute= express.Router();
 import Stripe from 'stripe';
 import { v4 as uuidv4 } from 'uuid';
-const stripe = new Stripe('sk_test_51MQb02SCIMxBFxxTjunQcF3fQ3Cv8x52ur9aQAnuXB7k8hTEp4ki6p8dcx4RboKedRsfJOaCed6Q3lsvpe5Wa20G00isqrzDzt');
+const stripe = new Stripe(`${process.env.STRIPE_KEY}`);
 
 
 
