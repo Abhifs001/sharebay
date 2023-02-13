@@ -3,6 +3,8 @@ import Booking from "../models/bookingModel.js";
 import Vehicles from "../models/vehicleModel.js";
 const bookingRoute= express.Router();
 import Stripe from 'stripe';
+import dotenv from 'dotenv' 
+dotenv.config()
 import { v4 as uuidv4 } from 'uuid';
 const stripe = new Stripe(`${process.env.STRIPE_KEY}`);
 
@@ -23,7 +25,7 @@ bookingRoute.post('/bookingcar', async (req,res)=>{
              const payment = await stripe.paymentIntents.create(
                  {
                      amount:req.body.amount *100,
-                     currency:'inr',
+                     currency:'INR',
                      customer:customer.id,
                      receipt_email:token.email,
                      payment_method: 'pm_card_visa',
@@ -39,7 +41,7 @@ bookingRoute.post('/bookingcar', async (req,res)=>{
            if(payment){
              //payment is the transaction  Id 
 
-            console.log(payment.customer);
+            // console.log(payment.customer);
            
             req.body.transactionId= payment.id;
             const newBooking = new Booking(req.body);
